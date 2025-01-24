@@ -7,12 +7,11 @@ User = get_user_model()
 
 
 class CreationInfo(models.Model):
-    is_published = models.BooleanField(
-        'Опубликовано',
-        default=True,
-        help_text='Снимите галочку, '
-        'чтобы скрыть публикацию.'
-        )
+    is_published = models.BooleanField('Опубликовано',
+                                       default=True,
+                                       help_text='Снимите галочку, '
+                                                 'чтобы скрыть публикацию.'
+                                       )
     created_at = models.DateTimeField(
         'Добавлено',
         auto_now_add=True
@@ -31,11 +30,10 @@ class Title(models.Model):
 
 class Category(CreationInfo, Title):
     description = models.TextField('Описание')
-    slug = models.SlugField(
-        'Идентификатор', unique=True,
-        help_text='Идентификатор страницы для URL; '
-        'разрешены символы латиницы, цифры, '
-        'дефис и подчёркивание.')
+    slug = models.SlugField('Идентификатор', unique=True,
+                            help_text='Идентификатор страницы для URL; '
+                                      'разрешены символы латиницы, цифры, '
+                                      'дефис и подчёркивание.')
 
     class Meta:
         verbose_name = 'категория'

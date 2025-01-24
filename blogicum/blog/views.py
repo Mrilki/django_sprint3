@@ -11,7 +11,7 @@ from .utils import filter_published_posts
 
 
 class IndexListView(ListView):
-    """Описание ляляля"""
+    """Обработка запроса для передачи списка постов"""
 
     model = Post
     queryset = filter_published_posts(Post.objects.select_related('category').all())
@@ -20,7 +20,7 @@ class IndexListView(ListView):
 
 
 class PostDetailView(DetailView):
-    """Описание лилили"""
+    """Обрабатывает запрос по адресу posts/<int:id>/"""
 
     model = Post
     template_name = 'blog/detail.html'
@@ -35,7 +35,7 @@ class PostDetailView(DetailView):
 
 
 class CategoryListView(ListView):
-    """Описание опяяять"""
+    """Обрабатывает запрос по адресу category/<slug:category_slug>/"""
 
     model = Post
     template_name = 'blog/category.html'
@@ -43,8 +43,7 @@ class CategoryListView(ListView):
 
     def get_queryset(self):
         category_slug = self.kwargs.get('category_slug')
-        category = get_object_or_404(Category,
-                                     slug=category_slug,
+        category = get_object_or_404(Category, slug=category_slug,
                                      is_published=True)
         return filter_published_posts(category.post_categories.select_related('category').all())
 
