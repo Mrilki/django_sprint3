@@ -14,7 +14,8 @@ class IndexListView(ListView):
     """Обработка запроса для передачи списка постов"""
 
     model = Post
-    queryset = filter_published_posts(Post.objects.select_related('category').all())
+    queryset = filter_published_posts(Post.
+                                      objects.select_related('category').all())
     paginate_by = 5
     template_name = 'blog/index.html'
 
@@ -43,8 +44,8 @@ class CategoryListView(ListView):
 
     def get_queryset(self):
         category_slug = self.kwargs.get('category_slug')
-        category = get_object_or_404(Category, slug=category_slug,
-                                     is_published=True)
+        category = get_object_or_404(Category,
+                                     slug=category_slug, is_published=True)
         return filter_published_posts(category.post_categories.select_related('category').all())
 
     def get_context_data(self, *, object_list=None, **kwargs):
